@@ -31,6 +31,7 @@ namespace PalTracker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddCors();
 
             services.AddSingleton(sp => new WelcomeMessage(
                 Configuration.GetValue<string>("WELCOME_MESSAGE", "WELCOME_MESSAGE not configured.")
@@ -60,7 +61,7 @@ namespace PalTracker
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             if(Configuration.GetValue("DISABLE_AUTH", false))
             {
@@ -83,6 +84,8 @@ namespace PalTracker
                 // See: https://steeltoe.io/docs/steeltoe-management/#1-2-9-cloud-foundry
                 app.UseCloudFoundryActuators();
             }
+
+            app.UseMvc();
         }
     }
 }
