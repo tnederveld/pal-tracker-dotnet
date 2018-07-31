@@ -6,3 +6,4 @@ applications:
   - route: br-pal-tracker-review.apps.pikes.pal.pivotal.io
   env:
     WELCOME_MESSAGE: Hello from the review environment
+    DISABLE_AUTH: true
